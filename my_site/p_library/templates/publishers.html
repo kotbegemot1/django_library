@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Список авторов</title>
+</head>
+<body>
+	<a href="{% url 'index' %}">На главную</a>
+	<ul>
+		{% for publisher in object_list %}
+            <li>{{ publisher.name }}</li>
+            <p>{{ publisher.address }}</p>
+            <p>{{ publisher.city }}</p>
+            <p>{{ publisher.state_province }}</p>
+		{% endfor %}
+	</ul>
+</body>
+</html> 

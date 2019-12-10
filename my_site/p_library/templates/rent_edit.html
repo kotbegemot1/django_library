@@ -1,0 +1,14 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+	<meta charset="UTF-8">  
+	<title>Форма создания новой аренды</title>  
+</head>  
+<body>  
+<form method="post">  
+	{% csrf_token %}  
+	{{ new_rent.as_p }}  
+	<input type="submit" value="Сохранить">  
+</form>  
+</body>  
+</html>

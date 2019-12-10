@@ -1,0 +1,13 @@
+<p>
+    <a href="{% url 'index' %}">На главную</a> - 
+    <a href="{% url 'redaction' %}">Посмотреть редакции</a> - 
+    <a href="{% url 'p_library:author_create' %}">Создать нового автора</a> -
+    <a href="{% url 'p_library:author_create_many' %}">Создать несколько авторов</a> -
+    <a href="{% url 'p_library:author_book_create_many' %}">Создать несколько авторов и книг</a> - 
+    <a href="{% url 'rent' %}">Взяли почитать</a>
+</p>
+<br>
+{% block content %}{% endblock content %}
+
+<a href="{% url 'p_library:authors_list_test' %}">Тест TemplateView</a> - 
+<a href="{% url 'p_library:publishers' %}">Тест ListView</a>

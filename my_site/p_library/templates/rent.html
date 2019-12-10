@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rent</title>
+    <!-- <link rel="stylesheet" href="{% static 'style_ind_test.css' %}"> -->
+</head>
+<body>
+
+    <a href="{% url 'p_library:create_friend' %}">Добавить друга</a> - 
+    <a href="{% url 'p_library:rent_create' %}">Дать книгу в аренду</a>
+    <br/>
+    <p>Друзья взявшие почитать книги:</p>
+    <table border='1'>
+        
+        <tr>
+            <th>№</th>
+            <th>Имя друга</th>
+            <th>Название книги</th>
+            <th>Количество</th>
+        </tr>
+        {% for rent in rents %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ rent.friend }}</td>
+            <td>{{ rent.book }}</td>
+            <td>{{ rent.count }}</td>
+            <td>
+                <form action="/rent/rent_delete/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                     <input type="hidden" name="id" value="{{rent.id}}" />
+                    <input type="submit" value="Вернул книгу" />
+                </form>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p>Осталось копий книг:</p>
+<table border='1'>
+    <tr>
+        <th>№</th>
+        <th>Название книги</th>
+        <th>Автор</th>
+        <th>Количество копий</th>
+    </tr>
+	{% for book in books %}
+	<tr>
+		<td>{{ forloop.counter }}</td>
+		<td>{{ book.title }}</td>
+		<td>{{ book.author.full_name }}</td>
+        <td>{{ book.copy_count }}</td>
+	</tr>
+	{% endfor %}
+</table>
+</body>
+</html>
+{% endblock content %}

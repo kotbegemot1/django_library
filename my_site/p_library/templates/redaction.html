@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+    {% for red in redact %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                {{ red.name }}
+                <ul class="list-group">
+                    {% for book in red.books.all %}
+                        <li class="list-group-item list-group-item-action list-group-item-success"> {{ book.title }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    {% endfor %}
+</body>
+</html>
+{% endblock content %}

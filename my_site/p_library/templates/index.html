@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %} 
+
+{% block content %}
+
+{% if username %}  
+<br>
+<div>
+<h1>Привет, {{ username }}!</h1>  
+<p>Тут ты можешь <a href="logout">выйти</a>.</p>  
+{% else %}  
+<p>Тебе нужно <a href="register">зарегистрироваться</a> или <a href="login">войти на сайт</a>!</p>  
+{% endif %}
+</div>
+<br>
+<p> Добро пожаловать в Мою библиотеку.  </p>
+<p> Тут собрано {{ books|length }} книг из моей личной коллекции. </p>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<br>
+<table border="1">
+	<tr>
+		<th>№</th>
+		<th>Название</th>
+		<th>Описание</th>
+		<th>Обложка</th>
+		<th>Год выпуска</th>
+		<th>Имя автора</th>
+		<th>Количество копий</th>
+	</tr>
+	{% for book in books %}
+	<tr>
+		<td>{{ forloop.counter }}</td>
+		<td>{{ book.title }}</td>
+		<!-- <td>{{ book.ISBN }}</td> -->
+		<td>{{ book.description }}</td>
+		{% if book.cover %}
+			<td><img src="{{ book.cover.url }}" alt="" style="width: 250px;"></td>
+		{% else %}
+			<td>У книги нет обложки</td>
+		{% endif %}
+		<td>{{ book.year_release }}</td>
+		<td>{{ book.author.full_name }}</td>
+		<!-- <td>{{ book.author.country }}</td> -->
+        <td>{{ book.copy_count }}</td>
+		<td>
+            <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            	<input type="hidden" name="id" value="{{book.id}}" />
+            	<input type="submit" value="Увеличить кол-во" />
+            </form>
+            <form action="/index/book_decrement/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{book.id}}" />
+                <input type="submit" value="Уменьшить кол-во" />
+            </form>
+        </td>
+	</tr>
+	{% endfor %}
+</table>
+
+<br>
+
+<p>	
+	{% load my_filters %}
+	{% for i in 100|range_ %}
+		{% if i|div:3 %}
+  			{{ i }}
+		{% endif %}	
+	{% endfor %}
+</p>
+{% endblock content %}
